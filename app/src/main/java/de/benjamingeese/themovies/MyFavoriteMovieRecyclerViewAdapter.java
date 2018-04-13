@@ -7,8 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -20,31 +18,33 @@ import de.benjamingeese.themovies.utilities.MovieDBApiUtils;
  * {@link RecyclerView.Adapter} that can display a {@link Movie} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  */
-public class MyFavoriteMovieRecyclerViewAdapter extends RecyclerView.Adapter<MyFavoriteMovieRecyclerViewAdapter.ViewHolder> {
+public class MyFavoriteMovieRecyclerViewAdapter extends RecyclerView.Adapter<MyMovieRecyclerViewAdapter.ViewHolder> {
 
     private final OnListFragmentInteractionListener mListener;
     private Cursor mCursor;
 
-    public MyFavoriteMovieRecyclerViewAdapter(OnListFragmentInteractionListener listener) {
+    MyFavoriteMovieRecyclerViewAdapter(OnListFragmentInteractionListener listener) {
         mListener = listener;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyMovieRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_movie, parent, false);
-        return new ViewHolder(view);
+        return new MyMovieRecyclerViewAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final MyMovieRecyclerViewAdapter.ViewHolder holder, int position) {
         //this is a cursor adapter, so we need to move the cursor to the position
         mCursor.moveToPosition(position);
 
         Movie entry = new Movie();
         entry.setUid(mCursor.getLong(MovieListFragment.INDEX_FAVORITE_MOVIE_ID));
         entry.setTitle(mCursor.getString(MovieListFragment.INDEX_FAVORITE_MOVIE_TITLE));
+        entry.setPosterPath(mCursor.getString(MovieListFragment.INDEX_FAVORITE_MOVIE_POSTER_PATH));
+        entry.setFavorite(true);
         holder.mItem = entry;
         holder.mTitleTextView.setText(entry.getTitle());
         Uri imageUri = MovieDBApiUtils.buildImageURI(entry.getPosterPath());
@@ -70,24 +70,5 @@ public class MyFavoriteMovieRecyclerViewAdapter extends RecyclerView.Adapter<MyF
     void swapCursor(Cursor newCursor) {
         mCursor = newCursor;
         notifyDataSetChanged();
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        final View mView;
-        final TextView mTitleTextView;
-        final ImageView mImageView;
-        Movie mItem;
-
-        ViewHolder(View view) {
-            super(view);
-            mView = view;
-            mTitleTextView = view.findViewById(R.id.title_tv);
-            mImageView = view.findViewById(R.id.poster_iv);
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mTitleTextView.getText() + "'";
-        }
     }
 }

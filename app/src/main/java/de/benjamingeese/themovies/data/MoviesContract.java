@@ -20,5 +20,6 @@ public final class MoviesContract {
                 .build();
         public static final String TABLE_NAME = "movies";
         public static final String COLUMN_NAME_TITLE = "title";
+        public static final String COLUMN_POSTER_URL = "poster_url";
     }
 }

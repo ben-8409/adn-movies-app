@@ -19,4 +19,7 @@
     <string name="text_movie_title">The Test</string>
     <string name="test_favorite_movie">My Favorite</string>
     <string name="item_filter_favorites">Favorites only</string>
+    <string name="item_set_favorite_title">Favorite</string>
+    <string name="toast_unfavorited_movie">Movie removed from favorites</string>
+    <string name="toast_favorited_movie">Movie saved to favorites</string>
 </resources>

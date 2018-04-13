@@ -36,9 +36,12 @@ public class MovieListFragment extends Fragment
     public static final String LIST_FILTER_FAVORITES = "favorites";
     public static final int INDEX_FAVORITE_MOVIE_ID = 0;
     public static final int INDEX_FAVORITE_MOVIE_TITLE = 1;
+    public static final int INDEX_FAVORITE_MOVIE_POSTER_PATH = 2;
+
     private static final String ARG_COLUMN_COUNT = "column-count";
     private static final String BUNDLE_MOVIE_LIST = "movies";
     private static final int ID_FAVORITES_LOADER = 101;
+
     private int mColumnCount = 2;
     private OnListFragmentInteractionListener mListener;
 
@@ -80,6 +83,7 @@ public class MovieListFragment extends Fragment
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
     }
 
     @Override

@@ -1,16 +1,19 @@
 package de.benjamingeese.themovies;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import de.benjamingeese.themovies.data.Movie;
@@ -29,7 +32,6 @@ public class MovieDetailActivity extends AppCompatActivity implements
     private Movie mMovie;
     private ViewPager mViewPager;
     private MovieTabsAdapter mMovieTabsAdapter;
-    private FloatingActionButton mFavoriteFAB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +59,6 @@ public class MovieDetailActivity extends AppCompatActivity implements
         // Give the TabLayout the ViewPager
         TabLayout tabLayout = findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
-        // Setup the FAB
-        mFavoriteFAB = findViewById(R.id.btn_mark_as_favorite);
-        if (mFavoriteFAB != null) {
-            mFavoriteFAB.setOnClickListener(v -> addAsFavorite());
-        }
 
     }
 
@@ -92,11 +88,52 @@ public class MovieDetailActivity extends AppCompatActivity implements
         }
     }
 
-    private void addAsFavorite() {
-        //create content values
-        ContentValues values = new ContentValues();
-        values.put(MoviesContract.MovieEntry._ID, mMovie.getUid());
-        values.put(MoviesContract.MovieEntry.COLUMN_NAME_TITLE, mMovie.getTitle());
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.movie_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.item_set_favorite:
+                setFavorite();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        //update favorite icon color for favorites
+        MenuItem favorite = menu.findItem(R.id.item_set_favorite);
+        if (favorite != null) {
+            if (mMovie.isFavorite()) {
+                favorite.setIcon(R.drawable.ic_star_white_24dp);
+            } else {
+                favorite.setIcon(R.drawable.ic_star_black_24dp);
+            }
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    private void setFavorite() {
+        if (mMovie.isFavorite()) {
+            Uri uri = ContentUris.withAppendedId(MoviesContract.MovieEntry.CONTENT_URI, mMovie.getUid());
+            //where not necessary since we handle this through the content uri
+            getContentResolver().delete(uri, null, null);
+            mMovie.setFavorite(false);
+            Toast.makeText(this, R.string.toast_unfavorited_movie, Toast.LENGTH_SHORT).show();
+        } else {
+            //create content values
+            ContentValues values = new ContentValues();
+            values.put(MoviesContract.MovieEntry._ID, mMovie.getUid());
+            values.put(MoviesContract.MovieEntry.COLUMN_NAME_TITLE, mMovie.getTitle());
+            values.put(MoviesContract.MovieEntry.COLUMN_POSTER_URL, mMovie.getPosterPath());
         /*new AsyncQueryHandler(getContentResolver()) {
 
             @Override
@@ -104,7 +141,12 @@ public class MovieDetailActivity extends AppCompatActivity implements
                 Toast.makeText(MovieDetailActivity.this, "New favorite saved", Toast.LENGTH_SHORT).show();
             }
         }.startInsert(1, null, MoviesContract.MovieEntry.CONTENT_URI, values);*/
-        getContentResolver().insert(MoviesContract.MovieEntry.CONTENT_URI, values);
+            getContentResolver().insert(MoviesContract.MovieEntry.CONTENT_URI, values);
+            mMovie.setFavorite(true);
+            Toast.makeText(this, R.string.toast_favorited_movie, Toast.LENGTH_SHORT).show();
+
+        }
+        invalidateOptionsMenu();
     }
 
 

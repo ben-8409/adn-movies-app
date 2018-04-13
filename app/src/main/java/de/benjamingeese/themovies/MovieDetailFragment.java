@@ -25,6 +25,7 @@ public class MovieDetailFragment extends Fragment {
     private static final String TAG = "MovieDetailFragment";
 
     private static final String ARG_MOVIE = "movie";
+    private static final int MOVIE_LOADER_ID = 101;
     private Movie mMovie;
     private ImageView mPosterImageView;
     private TextView mTitleTv;
@@ -92,4 +93,5 @@ public class MovieDetailFragment extends Fragment {
             }
         }
     }
+
 }

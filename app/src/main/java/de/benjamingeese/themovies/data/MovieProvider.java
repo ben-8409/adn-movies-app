@@ -146,7 +146,7 @@ public class MovieProvider extends ContentProvider {
                 String id = uri.getLastPathSegment();
                 numRowsDeleted = mOpenHelper.getWritableDatabase().delete(
                         MoviesContract.MovieEntry.TABLE_NAME,
-                        "WHERE " + MoviesContract.MovieEntry._ID + " = ?",
+                        MoviesContract.MovieEntry._ID + " = ?",
                         new String[]{id});
                 break;
 

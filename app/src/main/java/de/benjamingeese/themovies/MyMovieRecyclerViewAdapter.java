@@ -22,7 +22,7 @@ public class MyMovieRecyclerViewAdapter extends RecyclerView.Adapter<MyMovieRecy
     private final List<Movie> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyMovieRecyclerViewAdapter(List<Movie> items, OnListFragmentInteractionListener listener) {
+    MyMovieRecyclerViewAdapter(List<Movie> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -36,7 +36,7 @@ public class MyMovieRecyclerViewAdapter extends RecyclerView.Adapter<MyMovieRecy
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         Movie entry = mValues.get(position);
         holder.mItem = entry;
         holder.mTitleTextView.setText(entry.getTitle());
@@ -60,7 +60,7 @@ public class MyMovieRecyclerViewAdapter extends RecyclerView.Adapter<MyMovieRecy
         return mValues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         final View mView;
         final TextView mTitleTextView;
         final ImageView mImageView;

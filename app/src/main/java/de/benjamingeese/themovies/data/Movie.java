@@ -26,7 +26,6 @@ public class Movie implements Parcelable {
     private boolean adult;
     private String overview;
     private String releaseDate;
-    private List<Integer> genreIds;
     private String originalTitle;
     private String originalLanguage;
     private String title;
@@ -36,6 +35,7 @@ public class Movie implements Parcelable {
     private double voteAverage;
     private long voteCount;
     private boolean video;
+    private List<Integer> genreIds;
     private boolean favorite;
 
     public Movie() {
@@ -56,8 +56,10 @@ public class Movie implements Parcelable {
         voteAverage = in.readDouble();
         voteCount = in.readLong();
         video = in.readByte() != 0;
-        List<Long> readList = new ArrayList<>();
+        List<Integer> readList = new ArrayList<>();
         in.readList(readList, List.class.getClassLoader());
+        genreIds = readList;
+        favorite = in.readByte() != 0;
     }
 
     public long getUid() {
@@ -210,5 +212,6 @@ public class Movie implements Parcelable {
         dest.writeLong(voteCount);
         dest.writeByte((byte) (video ? 1 : 0));
         dest.writeList(genreIds);
+        dest.writeByte((byte) (favorite ? 1 : 0));
     }
 }

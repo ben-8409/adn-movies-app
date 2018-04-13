@@ -7,12 +7,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class MoviesDbHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "Movies.db";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
 
     private static final String SQL_CREATE_MOVIES =
             "CREATE TABLE " + MoviesContract.MovieEntry.TABLE_NAME + " (" +
                     MoviesContract.MovieEntry._ID + " INTEGER PRIMARY KEY," +
-                    MoviesContract.MovieEntry.COLUMN_NAME_TITLE + " TEXT)";
+                    MoviesContract.MovieEntry.COLUMN_NAME_TITLE + " TEXT," +
+                    MoviesContract.MovieEntry.COLUMN_POSTER_URL + " TEXT)";
 
     private static final String SQL_DELETE_MOVIES =
             "DROP TABLE IF EXISTS " + MoviesContract.MovieEntry.TABLE_NAME;
@@ -54,6 +55,14 @@ public class MoviesDbHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //No updates yet
+
+        if (oldVersion == 1) {
+            if (newVersion == 2) {
+                //Add movie posters to db
+                db.execSQL("ALTER TABLE " + MoviesContract.MovieEntry.TABLE_NAME +
+                        " ADD COLUMN " + MoviesContract.MovieEntry.COLUMN_POSTER_URL + " TEXT");
+            }
+        }
+
     }
 }
