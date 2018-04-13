@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:id="@+id/sortOptions">
+        <item
+            android:id="@+id/item_sort_most_popular"
+            android:title="@string/menu_sort_most_popular" />
+        <item
+            android:id="@+id/item_sort_top_rated"
+            android:title="@string/menu_sort_top_rated" />
+    </group>
+    <item
+        android:id="@+id/item_filter_favorites"
+        android:icon="@drawable/ic_star_black_24dp"
+        android:title="@string/item_filter_favorites"
+        app:showAsAction="ifRoom|withText" />
+</menu>

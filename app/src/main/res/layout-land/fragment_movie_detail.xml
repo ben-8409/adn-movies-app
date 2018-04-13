@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/detail_poster_iv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="W,2:3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_poster_placeholder"
+        tools:ignore="ContentDescription" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toEndOf="@id/detail_poster_iv"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/detail_title_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/label_movie_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/detail_title_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                app:layout_constraintStart_toStartOf="@+id/detail_title_label"
+                app:layout_constraintTop_toBottomOf="@+id/detail_title_label"
+                tools:text="Movie Title" />
+
+            <TextView
+                android:id="@+id/detail_release_date_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/label_release_date"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detail_title_tv" />
+
+            <TextView
+                android:id="@+id/detail_release_date_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                app:layout_constraintStart_toStartOf="@+id/detail_release_date_label"
+                app:layout_constraintTop_toBottomOf="@+id/detail_release_date_label"
+                tools:text="2.23.2018" />
+
+            <TextView
+                android:id="@+id/detail_vote_average_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/label_vote_average"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                app:layout_constraintStart_toStartOf="@+id/detail_release_date_tv"
+                app:layout_constraintTop_toBottomOf="@+id/detail_release_date_tv" />
+
+            <TextView
+                android:id="@+id/detail_vote_average_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                app:layout_constraintStart_toStartOf="@+id/detail_vote_average_label"
+                app:layout_constraintTop_toBottomOf="@+id/detail_vote_average_label"
+                tools:text="4" />
+
+            <TextView
+                android:id="@+id/detail_synopsis_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/label_detail_synopsis"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                app:layout_constraintStart_toStartOf="@+id/detail_vote_average_tv"
+                app:layout_constraintTop_toBottomOf="@+id/detail_vote_average_tv" />
+
+            <TextView
+                android:id="@+id/detail_synopsis_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/detail_synopsis_label"
+                app:layout_constraintTop_toBottomOf="@+id/detail_synopsis_label"
+                tools:text="Lo! Death has reared himself a throne
+In a strange city lying alone
+Far down within the dim West,
+Where the good and the bad and the worst and the best
+Have gone to their eternal rest.
+There shrines and palaces and towers
+(Time-eaten towers that tremble not!)
+Resemble nothing that is ours.
+Around, by lifting winds forgot,
+Resignedly beneath the sky
+The melancholy waters lie.
+No rays from the holy heaven come down
+On the long night-time of that town;
+But light from out the lurid sea
+Streams up the turrets silently-
+Gleams up the pinnacles far and free-
+Up domes- up spires- up kingly halls-
+Up fanes- up Babylon-like walls-
+Up shadowy long-forgotten bowers
+Of sculptured ivy and stone flowers-
+Up many and many a marvellous shrine
+Whose wreathed friezes intertwine
+The viol, the violet, and the vine.
+Resignedly beneath the sky
+The melancholy waters lie.
+So blend the turrets and shadows there
+That all seem pendulous in air,
+While from a proud tower in the town
+Death looks gigantically down.
+" />
+
+            <TextView
+                android:id="@+id/detail_trailer_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/label_detail_trailer"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detail_synopsis_tv" />
+
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+
+</android.support.constraint.ConstraintLayout>

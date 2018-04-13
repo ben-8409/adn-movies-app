@@ -1,0 +1,117 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "ab15ee723759c1c371e4aaef02045d2a",
+    "entities": [
+      {
+        "tableName": "Movie",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER NOT NULL, `poster_path` TEXT, `adult` INTEGER NOT NULL, `overview` TEXT, `release_date` TEXT, `genre_ids` TEXT, `original_title` TEXT, `original_language` TEXT, `title` TEXT, `backdrop_path` TEXT, `popularity` REAL NOT NULL, `vote_average` REAL NOT NULL, `vote_count` INTEGER NOT NULL, `video` INTEGER NOT NULL, `favorite` INTEGER NOT NULL, PRIMARY KEY(`uid`))",
+        "fields": [
+          {
+            "fieldPath": "uid",
+            "columnName": "uid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "posterPath",
+            "columnName": "poster_path",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "adult",
+            "columnName": "adult",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "overview",
+            "columnName": "overview",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "releaseDate",
+            "columnName": "release_date",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "genreIds",
+            "columnName": "genre_ids",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "originalTitle",
+            "columnName": "original_title",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "originalLanguage",
+            "columnName": "original_language",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "backdropPath",
+            "columnName": "backdrop_path",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "popularity",
+            "columnName": "popularity",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "voteAverage",
+            "columnName": "vote_average",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "voteCount",
+            "columnName": "vote_count",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "video",
+            "columnName": "video",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "favorite",
+            "columnName": "favorite",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "uid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"ab15ee723759c1c371e4aaef02045d2a\")"
+    ]
+  }
+}

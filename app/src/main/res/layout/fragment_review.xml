@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/text_margin">
+
+    <TextView
+        android:id="@+id/review_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        tools:text="Author" />
+
+    <TextView
+        android:id="@+id/review_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        tools:text="Up many and many a marvellous shrine Whose wreathed friezes intertwine The viol, the violet, and the vine. Resignedly beneath the sky The melancholy waters lie. So blend the turrets and shadows there That all seem pendulous in air, While from a proud tower in the town Death looks gigantically down." />
+</LinearLayout>
