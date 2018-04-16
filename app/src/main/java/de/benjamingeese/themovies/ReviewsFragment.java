@@ -25,10 +25,13 @@ public class ReviewsFragment extends Fragment implements AsyncTaskCompleteListen
     private static final String TAG = "ReviewsFragment";
 
     private static final String ARG_MOVIE = "movie";
+    private static final String LAYOUT_MANAGER_STATE = "layout-manager-state";
+    private static final String REVIEWS_BUNDLE_KEY = "bundle-reviews-key";
     private Movie mMovie;
     private OnListFragmentInteractionListener mListener;
-    private List<ReviewEntry> mReviews;
+    private ArrayList<ReviewEntry> mReviews;
     private MyReviewRecyclerViewAdapter mReviewsAdapter;
+    private RecyclerView recyclerView;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -62,14 +65,18 @@ public class ReviewsFragment extends Fragment implements AsyncTaskCompleteListen
             throw new RuntimeException(getActivity().toString()
                     + " must supply Movie for Reviews to load");
         }
-        mReviews = new ArrayList<>();
-        mReviewsAdapter = new MyReviewRecyclerViewAdapter(mReviews, mListener);
 
-        if (mMovie != null) {
 
-            loadReviews();
+        //load movies from bundle or net
+        if ( savedInstanceState != null && savedInstanceState.containsKey(REVIEWS_BUNDLE_KEY)) {
+            mReviews = savedInstanceState.getParcelableArrayList(REVIEWS_BUNDLE_KEY);
+        } else {
+            mReviews = new ArrayList<>();
+            if (mMovie != null) {
+                loadReviews();
+            }
         }
-
+        mReviewsAdapter = new MyReviewRecyclerViewAdapter(mReviews, mListener);
     }
 
     private void loadReviews() {
@@ -85,9 +92,13 @@ public class ReviewsFragment extends Fragment implements AsyncTaskCompleteListen
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setAdapter(mReviewsAdapter);
+        }
+
+        if(savedInstanceState != null && savedInstanceState.containsKey(LAYOUT_MANAGER_STATE)) {
+            recyclerView.getLayoutManager().onRestoreInstanceState(savedInstanceState.getParcelable(LAYOUT_MANAGER_STATE));
         }
         return view;
     }
@@ -124,16 +135,17 @@ public class ReviewsFragment extends Fragment implements AsyncTaskCompleteListen
         }
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        //save scroll position
+        outState.putParcelable(LAYOUT_MANAGER_STATE, recyclerView.getLayoutManager().onSaveInstanceState());
+        if(mReviews!=null) {
+            outState.putParcelableArrayList(REVIEWS_BUNDLE_KEY, mReviews);
+        }
+        super.onSaveInstanceState(outState);
+    }
+
+
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
         void onListFragmentInteraction(ReviewEntry item);

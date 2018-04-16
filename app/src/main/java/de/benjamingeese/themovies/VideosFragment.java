@@ -2,6 +2,7 @@ package de.benjamingeese.themovies;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +24,7 @@ public class VideosFragment extends Fragment implements AsyncTaskCompleteListene
 
     private static final String TAG = "ReviewsFragment";
     private static final String ARG_MOVIE = "movie";
+    private static final String BUNDLE_VIDEOS_KEY = "key-videos";
     private Movie mMovie;
     private OnListFragmentInteractionListener mListener;
     private RecyclerView mVideosRv;
@@ -60,7 +62,11 @@ public class VideosFragment extends Fragment implements AsyncTaskCompleteListene
             throw new RuntimeException(getActivity().toString()
                     + " must supply Movie for Reviews to load");
         }
-        mVideos = new ArrayList<>();
+        if(savedInstanceState != null && savedInstanceState.containsKey(BUNDLE_VIDEOS_KEY)) {
+            mVideos = savedInstanceState.getParcelableArrayList(BUNDLE_VIDEOS_KEY);
+        } else {
+            mVideos = new ArrayList<>();
+        }
         mVideosAdapter = new MyVideoRecyclerViewAdapter(mVideos, mListener);
 
         if (mMovie != null) {
@@ -76,7 +82,7 @@ public class VideosFragment extends Fragment implements AsyncTaskCompleteListene
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_video_list, container, false);
 
@@ -105,6 +111,12 @@ public class VideosFragment extends Fragment implements AsyncTaskCompleteListene
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList(BUNDLE_VIDEOS_KEY, mVideos);
     }
 
     /**
